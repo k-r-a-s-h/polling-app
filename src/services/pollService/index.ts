@@ -16,4 +16,14 @@ export class PollService {
             throw err;
         }
     }
+
+    getPollById = async (id: string): Promise<Poll | null> => {
+        try {
+            const poll = await this.pollRepository.getPollById(id);
+            return poll;
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
+    }
 }
