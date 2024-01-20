@@ -2,6 +2,7 @@
 CREATE TABLE `Poll` (
     `id` VARCHAR(191) NOT NULL,
     `question` LONGTEXT NOT NULL,
+    `description` LONGTEXT NOT NULL,
     `expiry_date` DATETIME(3) NOT NULL,
     `createdBy` VARCHAR(191) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
