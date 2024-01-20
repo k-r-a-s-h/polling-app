@@ -18,4 +18,24 @@ model User {
   isActive  Boolean  @default(true) @map("is_active")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  polls     Poll[]
+}
+
+model Poll {
+  id         String    @id @default(cuid())
+  question   String    @db.LongText
+  expiryDate DateTime  @map("expiry_date")
+  created    User      @relation(fields: [createdBy], references: [id])
+  createdBy  String
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt() @map("updated_at")
+  answers    Answers[]
+}
+
+model Answers {
+  id     String    @id @default(cuid())
+  poll   Poll   @relation(fields: [pollId], references: [id])
+  pollId String @map("poll_id")
+  answer String @db.Text
+
 }
