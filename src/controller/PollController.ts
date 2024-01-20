@@ -14,6 +14,21 @@ export default class PollController{
             return res.json(poll);
         } catch(err) {
             console.error(err);
+            // TODO: handle error gracefully
+            return res.json({
+                err,
+                message: "Something went wrong"
+            })
+        }
+    }
+    getPollById = async (req: Request, res: Response): Promise<Response> => {
+        try {
+            const { params } = req;
+            const poll = await this.pollService.getPollById(params.id);
+            return res.json(poll);
+        } catch(err) {
+            console.error(err);
+            // TODO: handle error gracefully
             return res.json({
                 err,
                 message: "Something went wrong"
