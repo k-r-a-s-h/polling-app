@@ -25,4 +25,21 @@ export class PollRepository {
             throw err;
         }
     }
+
+    async getPollById(id:string):Promise<Poll | null> {
+        try {
+            const poll = await prisma.poll.findUnique({
+                where: {
+                    id
+                },
+                include: {
+                    answers: true
+                }
+            });
+            return poll;
+        } catch (err) {
+            console.error(`[PollRepository.getPollById]`,err);
+            throw err;
+        }
+    }
 }
