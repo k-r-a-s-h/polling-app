@@ -35,6 +35,20 @@ export class UserRepository {
     }
   }
 
+  async getUserByEmail(email: string): Promise<User | null> {
+    try {
+      const user = await prisma.user.findUnique({
+        where: {
+          email,
+        }
+      });
+      return user;
+    } catch (err) {
+      console.error(`[UserRepository.getUserByEmail]`, err);
+      throw err;
+    }
+  }
+
   private async hashPassword(password: string): Promise<string> {
     try{
       const salt = await bcrypt.genSalt(this.SALT_ROUNDS);
