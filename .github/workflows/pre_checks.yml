@@ -1,0 +1,34 @@
+name: PR Checks
+on:
+    pull_request:
+        branches:
+            - main
+jobs:
+    build_checks:
+        runs-on: ubuntu-latest
+        name: Build Checks
+        strategy:
+            matrix:
+                node-version: [20.x]
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'npm'
+            - name: Install Dependencies
+              run: npm install
+            - name: Generate Build
+              run: npm run build
+    lint_checks:
+        name: Lint checks
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+            - name: Lint
+              run: npm install && npm run lint
+            
+            
