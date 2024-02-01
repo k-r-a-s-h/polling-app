@@ -11,7 +11,7 @@ export class JwtUtility {
     try {
       const token = jwt.sign(
         {
-          id: user.id,
+          userId: user.id,
           email: user.email,
         },
         this.jwtSecret,
