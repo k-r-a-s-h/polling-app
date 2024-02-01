@@ -10,7 +10,8 @@ export default class PollController{
     createPoll = async (req: Request, res: Response): Promise<Response> => {
         try {
             const { body } = req;
-            const poll = await this.pollService.createPollAndAnswers(body);
+            const userId = req.tokenData.userId;
+            const poll = await this.pollService.createPollAndAnswers(body, userId);
             return res.json(poll);
         } catch(err) {
             console.error(err);
