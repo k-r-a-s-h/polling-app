@@ -1,4 +1,4 @@
 export interface DecodedToken {
-    id: string,
+    userId: string,
     email: string
 }
