@@ -6,10 +6,10 @@ export class PollService {
   constructor() {
     this.pollRepository = new PollRepository();
   }
-  createPollAndAnswers = async (pollRequest: PollDTO): Promise<Poll> => {
+  createPollAndAnswers = async (pollRequest: PollDTO, createdBy: string): Promise<Poll> => {
     try {
       //TODO: validate poll request
-      const poll = await this.pollRepository.createPoll(pollRequest);
+      const poll = await this.pollRepository.createPoll(pollRequest,createdBy);
       return poll;
     } catch (err) {
       console.error(err);

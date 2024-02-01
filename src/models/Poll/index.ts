@@ -2,15 +2,14 @@ import { Poll, PollDTO } from "../../types/poll/types";
 import prisma from "../prisma";
 
 export class PollRepository {
-  async createPoll(pollRequest: PollDTO): Promise<Poll> {
+  async createPoll(pollRequest: PollDTO, createdBy:string): Promise<Poll> {
     try {
       const poll = await prisma.poll.create({
         data: {
           description: pollRequest.description,
           expiryDate: pollRequest.expiryDate,
           question: pollRequest.question,
-          // Hardcoding value till we implement user authentication
-          createdBy: "5ac0dff3-8085-49d7-b69d-a2d070702265",
+          createdBy: createdBy,
           answers: {
             create: pollRequest.answers,
           },
