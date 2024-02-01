@@ -1,10 +1,12 @@
 import prisma from "../prisma";
-import { User, UserDTO } from "../../services/userService/types";
+import { User, UserDTO } from "../../types/user/types";
 import bcrypt from "bcrypt";
 export class UserRepository {
-  private SALT_ROUNDS!: number; 
+  private SALT_ROUNDS!: number;
   UserRepository() {
-    this.SALT_ROUNDS = process.env.SALT_ROUNDS ? parseInt(process.env.SALT_ROUNDS) : 10;
+    this.SALT_ROUNDS = process.env.SALT_ROUNDS
+      ? parseInt(process.env.SALT_ROUNDS)
+      : 10;
   }
   async createUser(userRequest: UserDTO): Promise<User> {
     try {
@@ -40,7 +42,7 @@ export class UserRepository {
       const user = await prisma.user.findUnique({
         where: {
           email,
-        }
+        },
       });
       return user;
     } catch (err) {
@@ -50,7 +52,7 @@ export class UserRepository {
   }
 
   private async hashPassword(password: string): Promise<string> {
-    try{
+    try {
       const salt = await bcrypt.genSalt(this.SALT_ROUNDS);
       const hashedPassword = await bcrypt.hash(password, salt);
       return hashedPassword;
